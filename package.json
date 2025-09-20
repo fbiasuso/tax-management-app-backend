@@ -12,7 +12,8 @@
     "dev": "nodemon server.js",
     "lint": "eslint .",
     "migrate": "node database/migrate.js",
-    "seed": "node database/seed.js"
+    "seed": "node database/seed.js",
+    "db:test": "node database/test-connection.js"
   },
   "keywords": [],
   "author": "",
