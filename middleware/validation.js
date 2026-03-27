@@ -289,7 +289,7 @@ export const clientFilterSchema = Joi.object({
 
 export const moduleFilterSchema = Joi.object({
   jurisdiction: Joi.string().valid('Nacional', 'Provincial', 'Municipal').optional(),
-  category: Joi.string().max(100).optional()
+  frequency: Joi.string().valid('monthly', 'quarterly', 'yearly').optional()
 });
 
 // ============================================
