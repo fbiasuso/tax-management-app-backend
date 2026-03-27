@@ -12,7 +12,7 @@ class Task {
     this.status = data.status;
     this.priority = data.priority;
     this.assigned_to = data.assigned_to;
-    this.completed_by = data.completed_by;
+    this.completed_date = data.completed_date;
     this.completed_at = data.completed_at;
     this.is_recurring = data.is_recurring;
     this.recurrence_config = data.recurrence_config;
@@ -92,7 +92,7 @@ class Task {
       const query = `
         SELECT 
           t.*,
-          c.name as client_name,
+          c.business_name as client_name,
           c.cuit as client_cuit,
           tm.name as module_name,
           tj.name as jurisdiction_name,
@@ -105,7 +105,7 @@ class Task {
         JOIN tax_modules tm ON t.module_id = tm.id
         JOIN tax_jurisdictions tj ON tm.jurisdiction_id = tj.id
         LEFT JOIN users u_assigned ON t.assigned_to = u_assigned.id
-        LEFT JOIN users u_completed ON t.completed_by = u_completed.id
+        LEFT JOIN users u_completed ON t.completed_date = CURRENT_DATE
         WHERE t.id = $1
       `;
       
@@ -124,7 +124,7 @@ class Task {
       let query = `
         SELECT 
           t.*,
-          c.name as client_name,
+          c.business_name as client_name,
           c.cuit as client_cuit,
           tm.name as module_name,
           tj.name as jurisdiction_name,
@@ -251,7 +251,7 @@ class Task {
       const query = `
         SELECT 
           t.*,
-          c.name as client_name,
+          c.business_name as client_name,
           c.cuit as client_cuit,
           tm.name as module_name,
           tj.name as jurisdiction_name
@@ -279,7 +279,7 @@ class Task {
         UPDATE tasks 
         SET 
           status = $1,
-          completed_by = $2,
+          completed_date = CURRENT_DATE,
           completed_at = NOW(),
           updated_at = NOW()
         WHERE id = $3

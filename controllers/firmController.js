@@ -33,7 +33,7 @@ export const create = async (req, res, next) => {
       address,
       phone,
       email,
-      cuid
+      cuit
     }, req.user.userId);
     
     // Update user's firm association in the request for consistency
